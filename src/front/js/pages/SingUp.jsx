@@ -54,7 +54,7 @@ export const SingUp = () => {
             </Link>
             {
                 <div>
-                    <h1>Sing Up</h1>
+                    <h1><b>SING UP</b></h1>
                     {msg.length == 0 ? ""
                         : <div class="alert alert-danger" role="alert">{msg}</div>}
 
