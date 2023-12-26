@@ -23,7 +23,7 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
 
-@api.route('/signup', methods=['POST'])
+@api.route('/singup', methods=['POST'])
 def create_user():
     email = request.json.get('email')
     password= request.json.get('password')
@@ -88,7 +88,7 @@ def get_token():
     
 @api.route('/private')
 @jwt_required()
-def sign_user():
+def sing_user():
     user_validation = get_jwt_identity()
     user_from_db = User.query.get(user_validation)
 

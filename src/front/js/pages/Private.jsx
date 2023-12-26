@@ -14,8 +14,7 @@ export const Private = () => {
     }, [])
 
 
-    const randomPokemon = Math.floor(Math.random() * 1017) + 1;
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomPokemon}.png`;
+
 
     const logOut = () => {
         localStorage.setItem("access_token", "logOut")
@@ -31,10 +30,6 @@ export const Private = () => {
                 <div className="container">
                     <h1 className="m-5">Private Page</h1>
                     <div className="row">
-                        <div className="col-lg-4">
-                            <h2 className="text-start" style={{ marginLeft: '115px' }}>My Avatar</h2>
-                            <img src={imageUrl} alt="User Avatar" className="rounded-circle avatar" />
-                        </div>
                         <div className="col-lg-8">
                             <h2>Account details:</h2>
                             <table className="table table-light table-striped mt-4">
