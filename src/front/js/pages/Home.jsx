@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link, Routes, Route, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const Home = () => {
 
@@ -14,12 +14,12 @@ export const Home = () => {
 		}
 
 		if (store.newUserRes == "success") {
-			setMsg("User Created!!")
+			setMsg("User Created")
 			setAlertColor("alert alert-success")
 		}
 
 		if (localStorage.access_token == "logOut") {
-			setMsg("you are log out!!")
+			setMsg("you are logged out")
 			setAlertColor("alert alert-warning")
 
 			setTimeout(() => {
@@ -46,8 +46,8 @@ export const Home = () => {
 	const sendLoginForm = () => {
 		let emailInput = email
 		emailInput = emailInput.toLocaleLowerCase()
-		if (password.length < 6 || !emailInput.includes("@gmail.com")) {
-			setMsg("this password or email not are valid")
+		if (password.length < 6) {
+			setMsg("this password is not valid")
 			setAlertColor(" alert alert-danger")
 
 		} else {
@@ -68,27 +68,32 @@ export const Home = () => {
 
 
 	return (
-		<div className="text-center m-5">
-			<h1>Login</h1>
+		<div className="text-center m-auto w-25 mt-5">
+			<div style={{ backgroundColor: 'rgba(51, 255, 0, 0.4)', padding: '20px', borderRadius: '10px' }}>
+				<h1 style={{ color: 'white', marginBottom: '20px' }}>Login</h1>
 
-			<div className={alertColor} role="alert">{msg}</div>
+				<div className={alertColor} role="alert">{msg}</div>
 
-			<div className="form-floating mb-3">
-				<input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)} required ></input>
-				<label for="floatingInput" className="text-center">Email address</label>
+				<div className="form-floating mb-3">
+					<input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)} required ></input>
+					<label htmlFor="floatingInput" className="text-center">Email address</label>
+				</div>
+
+				<div className="form-floating">
+					<input type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
+					<label htmlFor="floatingPassword">Password</label>
+				</div>
+
+
+
+				<button type="button" className="btn btn-danger mt-3 w-40" onClick={() => sendLoginForm()}>Login</button>
+				<p className='mt-3' style={{ fontSize: '20px', color: 'white' }}>
+					No account? No Problem {' '}
+					<Link to="/singup" syle={{ textDecoration: 'underline', color: 'black' }}>
+						Sign up
+					</Link>
+				</p>
 			</div>
-
-			<div className="form-floating">
-				<input type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
-				<label for="floatingPassword">Password</label>
-			</div>
-
-
-
-			<button type="button" className="btn btn-primary py-3 w-25 m-3" onClick={() => sendLoginForm()}>Login</button>
-			<h6>Or</h6>
-			<button type="button" className="btn btn-primary py-3 w-25 m-3" onClick={() => navigate('/singup')}>Sing Up</button>
-
 		</div>
 	);
 };

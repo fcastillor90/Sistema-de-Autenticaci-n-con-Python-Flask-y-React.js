@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, Routes, Route, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const Private = () => {
     const navigate = useNavigate()
@@ -14,6 +14,8 @@ export const Private = () => {
     }, [])
 
 
+    const randomPokemon = Math.floor(Math.random() * 1017) + 1;
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${randomPokemon}.png`;
 
     const logOut = () => {
         localStorage.setItem("access_token", "logOut")
@@ -24,25 +26,39 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
 
     return (
-        <div className="text-center mt-5">
-            {!store.loginRes.includes(true) ? <h1>Acees Denied :( login for see the content</h1> :
-                <div className="">
-                    <h1 className="m-5">Private Home</h1>
-                    <div className="">
-                        <h2>User private details:</h2>
-                        <h3>User ID</h3>
-                        <h4>{store.privateData.user_id}</h4>
-                        <h3>First Name</h3>
-                        <h4>{store.privateData.first_name}</h4>
-                        <h3>Last Name</h3>
-                        <h4>{store.privateData.last_name}</h4>
-                        <h3>Create date</h3>
-                        <h4>{store.privateData.create_at}</h4>
+        <div className="text-center mt-5" style={{ color: 'white' }}>
+            {!store.loginRes.includes(true) ? <h1>Private Route. Login to see content</h1> :
+                <div className="container">
+                    <h1 className="m-5">Private Page</h1>
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <h2 className="text-start" style={{ marginLeft: '115px' }}>My Avatar</h2>
+                            <img src={imageUrl} alt="User Avatar" className="rounded-circle avatar" />
+                        </div>
+                        <div className="col-lg-8">
+                            <h2>Account details:</h2>
+                            <table className="table table-light table-striped mt-4">
+                                <tbody>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <td>{store.privateData.user_id}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <td>{store.privateData.first_name + ' ' + store.privateData.last_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{store.privateData.email}</td>
+                                    </tr>
+                                    {/* Add more rows as needed */}
+                                </tbody>
+                            </table>
+                            <button type="button" className="btn btn-danger w-25 mt-4" onClick={() => logOut()}>Log out</button>
+                        </div>
                     </div>
-                    <button type="button" className="btn btn-danger m-2 w-50" onClick={() => logOut()}>Log out</button>
-
-
-                </div>}
+                </div>
+            }
         </div>
-    );
+    )
 };
